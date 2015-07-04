@@ -1,0 +1,28 @@
+{
+    "name": "carnage/cqorms",
+    "description": "Doctrine ORM implementation of persistence for cqrs module",
+    "license": "AGPL",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/carnage/cqrs.git"
+        }
+    ],
+    "require": {
+        "php": ">=5.5",
+        "zendframework/zendframework": "~2.4.0",
+        "ircmaxell/random-lib": "^1.0.0",
+        "doctrine/doctrine-orm-module": "^0.9.0",
+        "carnage/cqrs": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Carnage\\Cqorms\\": "/src"
+        }
+    },
+    "require-dev": {
+        "mockery/mockery": "~0.9.1",
+        "phpunit/phpunit": "~4.1.3"
+    }
+}
+
