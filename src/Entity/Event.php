@@ -25,7 +25,7 @@ class Event
     protected $aggregateId;
 
     /**
-     * @ORM\Column(type="object", length=255)
+     * @ORM\Column(type="object")
      */
     protected $payload;
 

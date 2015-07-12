@@ -6,6 +6,7 @@ use Carnage\Cqorms\Persistence as OrmPersistence;
 return [
     'service_manager' => [
         'factories' => [
+            OrmPersistence\EventStore\OrmEventStore::class => OrmPersistence\EventStore\OrmEventStoreFactory::class
         ],
         'aliases' => [
             Persistence\EventStore\EventStoreInterface::class =>

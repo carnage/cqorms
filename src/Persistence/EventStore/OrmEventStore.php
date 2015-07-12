@@ -4,7 +4,6 @@ namespace Carnage\Cqorms\Persistence\EventStore;
 
 use Carnage\Cqorms\Entity\Event;
 use Carnage\Cqrs\Persistence\EventStore\EventStoreInterface;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
@@ -28,17 +27,16 @@ final class OrmEventStore implements EventStoreInterface
 
     public function load($aggregateType, $id)
     {
-        $events = [];
-        $callback = function (Event $item) use ($events) {
-            $events[] = $item->getPayload();
-        };
         $className = $this->eventEntity;
         $repository = $this->entityManager->getRepository($className);
-        $eventsCollection = new ArrayCollection($repository->findBy([$className::AGGREGATE_ID => $id]));
-        $eventsCollection->forAll($callback);
+        $eventsCollection = $repository->findBy([$className::AGGREGATE_ID => $id]);
+
+        $events = [];
+        foreach ($eventsCollection as $event) {
+            $events[] = $event->getPayload();
+        }
 
         return $events;
-
     }
 
     public function save($aggregateType, $id, $events)
@@ -49,7 +47,7 @@ final class OrmEventStore implements EventStoreInterface
             $entity = new Event($id, $event);
             $this->entityManager->persist($entity);
         }
-
+        $this->entityManager->flush();
         $this->entityManager->commit();
     }
 
