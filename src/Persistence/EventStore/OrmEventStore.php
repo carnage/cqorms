@@ -29,11 +29,15 @@ final class OrmEventStore implements EventStoreInterface
     {
         $className = $this->eventEntity;
         $repository = $this->entityManager->getRepository($className);
-        $eventsCollection = $repository->findBy([$className::AGGREGATE_ID => $id]);
+        $eventsCollection = $repository->findBy([$className::AGGREGATE_ID => $id, $className::AGGREGATE_TYPE => $aggregateType]);
 
         $events = [];
         foreach ($eventsCollection as $event) {
             $events[] = $event->getPayload();
+        }
+
+        if (empty($events)) {
+            throw new \Exception('Not found');
         }
 
         return $events;
@@ -44,7 +48,7 @@ final class OrmEventStore implements EventStoreInterface
         $this->entityManager->beginTransaction();
 
         foreach ($events as $event) {
-            $entity = new Event($id, $event);
+            $entity = new Event($id, $aggregateType, $event);
             $this->entityManager->persist($entity);
         }
         $this->entityManager->flush();
