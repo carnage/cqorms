@@ -5,6 +5,7 @@ use Carnage\Cqorms\Dbal\Serializer\JsonAsArrayDeserializationVisitor;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\Type;
+use JMS\Serializer\JsonSerializationVisitor;
 use JMS\Serializer\Naming\IdenticalPropertyNamingStrategy;
 use JMS\Serializer\SerializerBuilder;
 
@@ -114,10 +115,10 @@ class JsonObject extends Type
     private function getSerializer()
     {
         return SerializerBuilder::create()
-            ->setPropertyNamingStrategy(new IdenticalPropertyNamingStrategy())
             ->setDeserializationVisitor(
                 'json',
                 new JsonAsArrayDeserializationVisitor(new IdenticalPropertyNamingStrategy())
-            )->build();
+            )->setSerializationVisitor('json', new JsonSerializationVisitor(new IdenticalPropertyNamingStrategy()))
+            ->build();
     }
 }
