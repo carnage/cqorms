@@ -20,9 +20,15 @@ return [
                 'cache' => 'array',
                 'paths' => array(__DIR__ . '/../src/Entity')
             ),
+            'cqrs' => array(
+                'class' =>\Doctrine\ORM\Mapping\Driver\XmlDriver::class,
+                'cache' => 'array',
+                'paths' => array(__DIR__ . '/mapping')
+            ),
             'orm_default' => array(
                 'drivers' => array(
-                    'Carnage\Cqorms\Entity' => 'cqorms'
+                    'Carnage\Cqorms\Entity' => 'cqorms',
+                    'Carnage\Cqrs\Event' => 'cqrs'
                 )
             )
         ),

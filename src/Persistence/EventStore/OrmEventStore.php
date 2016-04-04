@@ -2,6 +2,7 @@
 
 namespace Carnage\Cqorms\Persistence\EventStore;
 
+use Carnage\Cqorms\Entity\DomainMessage;
 use Carnage\Cqorms\Entity\Event;
 use Carnage\Cqrs\Persistence\EventStore\EventStoreInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,7 +18,7 @@ final class OrmEventStore implements EventStoreInterface
      * @var \Doctrine\ORM\EntityManagerInterface
      */
     private $entityManager;
-    private $eventEntity = Event::class;
+    private $eventEntity = DomainMessage::class;
 
     public function __construct(EntityManagerInterface $entityManager)
     {

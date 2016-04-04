@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <embeddable name="Carnage\Cqrs\Event\DomainMessage">
+        <field name="time" type="datetime" />
+        <field name="timeRecorded" type="datetime" />
+        <field name="version" type="integer" version="true" />
+        <field name="aggregateId" type="string" />
+        <field name="aggregateClass" type="string" />
+        <field name="event" type="object" />
+        <field name="eventClass" type="string" />
+        <field name="metadata" type="json_array" />
+    </embeddable>
+
+</doctrine-mapping>
