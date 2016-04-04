@@ -21,7 +21,7 @@ class DomainMessage
 
     /**
      * @var mixed
-     * @ORM\Embedded(class="\Carnage\Cqrs\Event\DomainMessage", prefix=false)
+     * @ORM\Embedded(class="\Carnage\Cqrs\Event\DomainMessage", columnPrefix=false)
      */
     protected $domainMessage;
 
