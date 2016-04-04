@@ -13,24 +13,34 @@ return [
                 OrmPersistence\EventStore\OrmEventStore::class
         ]
     ],
-    'doctrine' => array(
-        'driver' => array(
-            'cqorms' => array(
+    'doctrine' => [
+        'configuration' => [
+            'orm_default' => [
+                'types' => [
+                    'json_object' => \Carnage\Cqorms\Dbal\JsonObject::class
+                ],
+                'doctrine_type_mappings' => [
+                    'json_object' => 'json_object'
+                ],
+            ]
+        ],
+        'driver' => [
+            'cqorms' => [
                 'class' =>'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
                 'cache' => 'array',
-                'paths' => array(__DIR__ . '/../src/Entity')
-            ),
-            'cqrs' => array(
+                'paths' => [__DIR__ . '/../src/Entity']
+            ],
+            'cqrs' => [
                 'class' =>\Doctrine\ORM\Mapping\Driver\XmlDriver::class,
                 'cache' => 'array',
-                'paths' => array(__DIR__ . '/mapping')
-            ),
-            'orm_default' => array(
-                'drivers' => array(
+                'paths' => [__DIR__ . '/mapping']
+            ],
+            'orm_default' => [
+                'drivers' => [
                     'Carnage\Cqorms\Entity' => 'cqorms',
                     'Carnage\Cqrs\Event' => 'cqrs'
-                )
-            )
-        ),
-    ),
+                ]
+            ]
+        ],
+    ],
 ];

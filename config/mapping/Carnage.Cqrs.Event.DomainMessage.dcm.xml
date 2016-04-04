@@ -10,7 +10,7 @@
         <field name="version" type="integer"/>
         <field name="aggregateId" type="string" />
         <field name="aggregateClass" type="string" />
-        <field name="event" type="object" />
+        <field name="event" type="json_object" />
         <field name="eventClass" type="string" />
         <field name="metadata" type="json_array" />
     </embeddable>
