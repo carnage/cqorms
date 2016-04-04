@@ -18,7 +18,11 @@ return [
             'orm_default' => [
                 'types' => [
                     'json_object' => \Carnage\Cqorms\Dbal\JsonObject::class
-                ],
+                ]
+            ]
+        ],
+        'connection' => [
+            'orm_default' => [
                 'doctrine_type_mappings' => [
                     'json_object' => 'json_object'
                 ],
