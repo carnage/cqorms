@@ -47,9 +47,10 @@ final class OrmEventStore implements EventStoreInterface
     public function save($aggregateType, $id, $events)
     {
         $this->entityManager->beginTransaction();
+        $className = $this->eventEntity;
 
         foreach ($events as $event) {
-            $entity = new Event($id, $aggregateType, $event);
+            $entity = new $className($event);
             $this->entityManager->persist($entity);
         }
         $this->entityManager->flush();

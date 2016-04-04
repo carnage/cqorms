@@ -2,6 +2,7 @@
 
 namespace Carnage\Cqorms\Entity;
 
+use Carnage\Cqrs\Event\DomainMessage as DomainMessageWrapper;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,11 +37,11 @@ class Event
      */
     protected $payload;
 
-    public function __construct($aggregateId, $aggregateType, $payload)
+    public function __construct(DomainMessageWrapper $payload)
     {
-        $this->aggregateId = $aggregateId;
+        $this->aggregateId = $payload->getAggregateId();
         $this->payload = $payload;
-        $this->aggregateType = $aggregateType;
+        $this->aggregateType = $payload->getAggregateClass();
     }
 
     /**

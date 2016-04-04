@@ -7,7 +7,7 @@
     <embeddable name="Carnage\Cqrs\Event\DomainMessage">
         <field name="time" type="datetime" />
         <field name="timeRecorded" type="datetime" />
-        <field name="version" type="integer" version="true" />
+        <field name="version" type="integer"/>
         <field name="aggregateId" type="string" />
         <field name="aggregateClass" type="string" />
         <field name="event" type="object" />

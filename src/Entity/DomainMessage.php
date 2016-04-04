@@ -3,6 +3,7 @@
 namespace Carnage\Cqorms\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Carnage\Cqrs\Event\DomainMessage as DomainMessageWrapper;
 
 /**
  * Class DomainMessage
@@ -20,16 +21,16 @@ class DomainMessage
     protected $id;
 
     /**
-     * @var mixed
+     * @var DomainMessageWrapper
      * @ORM\Embedded(class="\Carnage\Cqrs\Event\DomainMessage", columnPrefix=false)
      */
     protected $domainMessage;
 
     /**
-     * DomainMessage constructor.
+     * DomainMessageWrapper constructor.
      * @param $domainMessage
      */
-    public function __construct($domainMessage)
+    public function __construct(DomainMessageWrapper $domainMessage)
     {
         $this->domainMessage = $domainMessage;
     }
