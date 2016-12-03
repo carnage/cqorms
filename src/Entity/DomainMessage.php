@@ -14,6 +14,7 @@ class DomainMessage
 {
     const AGGREGATE_ID = 'domainMessage.aggregateId';
     const AGGREGATE_TYPE = 'domainMessage.aggregateClass';
+    const EVENT_CLASS = 'domainMessage.eventClass';
     /**
      * @var integer
      * @ORM\Id @ORM\GeneratedValue @ORM\Column(type="integer")
