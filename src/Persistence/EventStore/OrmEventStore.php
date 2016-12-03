@@ -67,7 +67,7 @@ final class OrmEventStore implements EventStoreInterface, LoadEventsInterface
     {
         $className = $this->eventEntity;
         $queryBuilder = $this->entityManager->getRepository($className)->createQueryBuilder('e');
-        $eventsCollection = $queryBuilder->where(sprintf('e.%s in :eventTypes', $className::EVENT_CLASS))
+        $eventsCollection = $queryBuilder->where(sprintf('e.%s in (:eventTypes)', $className::EVENT_CLASS))
             ->setParameter('eventTypes', $eventTypes)
             ->getQuery()
             ->getResult();
