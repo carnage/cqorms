@@ -1,11 +1,11 @@
 <?php
 namespace Carnage\Cqorms\Dbal;
 
-use Carnage\Cqorms\Dbal\Serializer\JsonAsArrayDeserializationVisitor;
+use Carnage\Cqorms\Dbal\Serializer\ObjectHandler;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\Type;
-use JMS\Serializer\JsonSerializationVisitor;
+use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\Naming\IdenticalPropertyNamingStrategy;
 use JMS\Serializer\SerializerBuilder;
 
@@ -28,7 +28,7 @@ class JsonObject extends Type
      */
     public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
     {
-        return $platform->getClobTypeDeclarationSQL($fieldDeclaration);
+        return $platform->getJsonTypeDeclarationSQL($fieldDeclaration);
     }
 
     /**
@@ -83,7 +83,7 @@ class JsonObject extends Type
         $className = $decoded['class'];
         $payload = $decoded['payload'];
 
-        return $this->getSerializer()->deserialize($payload, $className, 'json');
+        return $this->getSerializer()->fromArray($payload, $className);
     }
 
     /**
@@ -115,10 +115,10 @@ class JsonObject extends Type
     private function getSerializer()
     {
         return SerializerBuilder::create()
-            ->setDeserializationVisitor(
-                'json',
-                new JsonAsArrayDeserializationVisitor(new IdenticalPropertyNamingStrategy())
-            )->setSerializationVisitor('json', new JsonSerializationVisitor(new IdenticalPropertyNamingStrategy()))
+            ->setPropertyNamingStrategy(new IdenticalPropertyNamingStrategy())
+            ->configureHandlers(function (HandlerRegistry $registry) {
+                $registry->registerSubscribingHandler(new ObjectHandler());
+            })
             ->build();
     }
 }
