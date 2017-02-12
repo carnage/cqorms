@@ -6,6 +6,7 @@ use JMS\Serializer\Context;
 use JMS\Serializer\Exception\RuntimeException;
 use JMS\Serializer\GraphNavigator;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
+use JMS\Serializer\JsonDeserializationVisitor;
 use JMS\Serializer\JsonSerializationVisitor;
 
 class ObjectHandler implements SubscribingHandlerInterface
@@ -42,7 +43,7 @@ class ObjectHandler implements SubscribingHandlerInterface
         return $serialisation;
     }
 
-    public function deserializeObject(JsonSerializationVisitor $visitor, $data, array $type, Context $context)
+    public function deserializeObject(JsonDeserializationVisitor $visitor, $data, array $type, Context $context)
     {
         if ($data === null) {
             return null;
