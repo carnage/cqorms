@@ -2,6 +2,7 @@
 
 namespace Carnage\Cqorms\Persistence\EventStore;
 
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -15,6 +16,11 @@ class OrmEventStoreFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return new OrmEventStore($serviceLocator->get('doctrine.entitymanager.orm_default'));
+        return $this($serviceLocator, OrmEventStore::class);
+    }
+
+    public function __invoke(ContainerInterface $container, $name, array $options = [])
+    {
+        return new OrmEventStore($container->get('doctrine.entitymanager.orm_default'));
     }
 }
