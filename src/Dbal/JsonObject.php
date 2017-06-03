@@ -119,6 +119,7 @@ class JsonObject extends Type
             ->configureHandlers(function (HandlerRegistry $registry) {
                 $registry->registerSubscribingHandler(new ObjectHandler());
             })
+            ->addDefaultHandlers()
             ->build();
     }
 }

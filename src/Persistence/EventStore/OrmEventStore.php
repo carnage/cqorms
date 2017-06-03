@@ -5,6 +5,7 @@ namespace Carnage\Cqorms\Persistence\EventStore;
 use Carnage\Cqorms\Entity\DomainMessage;
 use Carnage\Cqrs\Persistence\EventStore\EventStoreInterface;
 use Carnage\Cqrs\Persistence\EventStore\LoadEventsInterface;
+use Carnage\Cqrs\Persistence\EventStore\NotFoundException;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
@@ -35,7 +36,7 @@ final class OrmEventStore implements EventStoreInterface, LoadEventsInterface
         $events = $this->processEvents($eventsCollection);
 
         if (empty($events)) {
-            throw new \Exception('Not found');
+            throw new NotFoundException('Not found');
         }
 
         return $events;
